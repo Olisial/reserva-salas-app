@@ -1,16 +1,14 @@
-// src/screens/admin/CadastrarSala.js
-import { useNavigation } from '@react-navigation/native';
+// src/screens/admin/CadastrarPorta.js
 import { useState } from 'react';
-import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, ScrollView, StyleSheet, Text, View } from 'react-native';
 import Button from '../../components/form/Button';
 import Input from '../../components/form/Input';
 import { api } from '../../services/api';
 
-export default function CadastrarSala() {
+export default function CadastrarPorta() {
   const [nome, setNome] = useState('');
   const [descricao, setDescricao] = useState('');
   const [nivelAcesso, setNivelAcesso] = useState('');
-  const navigation = useNavigation();
 
   const handleCadastrar = async () => {
     if (!nome) return Alert.alert('Erro', 'Nome é obrigatório');
@@ -19,56 +17,78 @@ export default function CadastrarSala() {
     else Alert.alert('Erro', 'Falha ao cadastrar');
   };
 
-  const handleLogout = () => {
-    navigation.navigate('Login');
-  };
-
   return (
     <View style={styles.container}>
-      <Input
-        label="Número da Porta"
-        value={nome}
-        onChangeText={setNome}
-      />
-      <Input
-        label="Descrição"
-        value={descricao}
-        onChangeText={setDescricao}
-      />
-      <Input
-        label="Nível de acesso"
-        value={nivelAcesso}
-        onChangeText={setNivelAcesso}
-        placeholder="ex: 0, 1, 2"
-      />
+      <ScrollView
+        contentContainerStyle={styles.content}
+        showsVerticalScrollIndicator={false}
+      >
+        <View style={styles.header}>
+          <Text style={styles.title}>Cadastro de Portas</Text>
+          <Text style={styles.subtitle}>
+            Configure novas portas e defina níveis de acesso para os ambientes.
+          </Text>
+        </View>
 
-      <Button title="Cadastrar" onPress={handleCadastrar} />
+        <View style={styles.card}>
+          <Input
+            label="Número da Porta"
+            value={nome}
+            onChangeText={setNome}
+            placeholder="Ex: Sala 101"
+          />
+          <Input
+            label="Descrição"
+            value={descricao}
+            onChangeText={setDescricao}
+            placeholder="Informe a finalidade ou localização"
+          />
+          <Input
+            label="Nível de acesso"
+            value={nivelAcesso}
+            onChangeText={setNivelAcesso}
+            placeholder="Ex: 0, 1, 2"
+          />
 
-      <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
-        <Text style={styles.logoutText}>Sair</Text>
-      </TouchableOpacity>
+          <Button title="Cadastrar" onPress={handleCadastrar} />
+        </View>
+      </ScrollView>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    padding: 16,
-    backgroundColor: '#fff',
     flex: 1,
-    justifyContent: 'center',
+    backgroundColor: '#0B1120',
   },
-  logoutButton: {
-    backgroundColor: '#27ae60', // verde escuro
-    paddingVertical: 12,
-    paddingHorizontal: 25,
-    borderRadius: 30,
-    alignItems: 'center',
-    marginTop: 20,
+  content: {
+    padding: 24,
   },
-  logoutText: {
-    color: '#fff',
-    fontWeight: 'bold',
+  header: {
+    marginBottom: 20,
+  },
+  title: {
+    fontSize: 26,
+    fontWeight: '700',
+    color: '#F8FAFC',
+    marginBottom: 8,
+  },
+  subtitle: {
     fontSize: 16,
+    color: 'rgba(148, 163, 184, 0.9)',
+    lineHeight: 22,
+  },
+  card: {
+    backgroundColor: 'rgba(15, 23, 42, 0.85)',
+    borderRadius: 20,
+    padding: 20,
+    borderWidth: 1,
+    borderColor: 'rgba(148, 163, 184, 0.12)',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 12 },
+    shadowOpacity: 0.35,
+    shadowRadius: 20,
+    elevation: 10,
   },
 });

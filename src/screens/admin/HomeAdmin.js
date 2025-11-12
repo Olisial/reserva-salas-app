@@ -1,4 +1,5 @@
 // src/screens/admin/HomeAdmin.js
+import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
@@ -9,14 +10,56 @@ export default function HomeAdmin() {
     navigation.navigate('Login');
   };
 
+  const shortcuts = [
+    {
+      label: 'Gerenciar Usuários',
+      description: 'Cadastre e acompanhe os usuários do sistema',
+      icon: 'people-circle',
+      route: 'CadastrarUsuario',
+    },
+    {
+      label: 'Gerenciar Portas',
+      description: 'Configure novas portas e níveis de acesso',
+      icon: 'lock-closed',
+      route: 'CadastrarPorta',
+    },
+    {
+      label: 'Histórico',
+      description: 'Veja as atividades e acessos recentes',
+      icon: 'time',
+      route: 'HistoricoPortas',
+    },
+  ];
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Bem-vindo, Administrador!</Text>
-      <Text style={styles.subtitle}>
-        Acesse as abas abaixo para gerenciar usuários e portas.
-      </Text>
+      <View style={styles.header}>
+        <Text style={styles.title}>Bem-vindo, Administrador</Text>
+        <Text style={styles.subtitle}>
+          Selecione uma opção para começar a gerenciar o sistema.
+        </Text>
+      </View>
 
-      <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
+      <View style={styles.cardsContainer}>
+        {shortcuts.map((item) => (
+          <TouchableOpacity
+            key={item.route}
+            style={styles.card}
+            onPress={() => navigation.navigate(item.route)}
+            activeOpacity={0.9}
+          >
+            <View style={styles.iconWrapper}>
+              <Ionicons name={item.icon} size={32} color="#0F172A" />
+            </View>
+            <View style={styles.cardTexts}>
+              <Text style={styles.cardTitle}>{item.label}</Text>
+              <Text style={styles.cardSubtitle}>{item.description}</Text>
+            </View>
+          </TouchableOpacity>
+        ))}
+      </View>
+
+      <TouchableOpacity style={styles.logoutButton} onPress={handleLogout} activeOpacity={0.85}>
         <Text style={styles.logoutText}>Sair</Text>
       </TouchableOpacity>
     </View>
@@ -24,32 +67,79 @@ export default function HomeAdmin() {
 }
 
 const styles = StyleSheet.create({
-  container: { 
-    flex: 1, 
-    justifyContent: 'center', 
-    alignItems: 'center', 
-    backgroundColor: '#fff', 
-    paddingHorizontal: 20 
+  container: {
+    flex: 1,
+    backgroundColor: '#0B1120',
+    paddingHorizontal: 24,
+    paddingTop: 60,
+    paddingBottom: 40,
   },
-  title: { 
-    fontSize: 24, 
-    fontWeight: 'bold', 
-    color: '#2c3e50', 
-    marginBottom: 10, 
-    textAlign: 'center' 
+  header: {
+    marginBottom: 32,
   },
-  subtitle: { 
-    fontSize: 16, 
-    color: '#555', 
-    textAlign: 'center', 
-    marginBottom: 40 
+  title: {
+    fontSize: 28,
+    fontWeight: '700',
+    color: '#F8FAFC',
+    marginBottom: 8,
+  },
+  subtitle: {
+    fontSize: 16,
+    color: 'rgba(148, 163, 184, 0.9)',
+    lineHeight: 22,
+  },
+  cardsContainer: {
+    gap: 16,
+    flex: 1,
+  },
+  card: {
+    backgroundColor: 'rgba(15, 23, 42, 0.85)',
+    borderRadius: 18,
+    padding: 20,
+    borderWidth: 1,
+    borderColor: 'rgba(148, 163, 184, 0.12)',
+    flexDirection: 'row',
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 12 },
+    shadowOpacity: 0.35,
+    shadowRadius: 20,
+    elevation: 10,
+  },
+  iconWrapper: {
+    width: 58,
+    height: 58,
+    borderRadius: 16,
+    backgroundColor: '#34D399',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 18,
+  },
+  cardTexts: {
+    flex: 1,
+  },
+  cardTitle: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#F8FAFC',
+    marginBottom: 6,
+  },
+  cardSubtitle: {
+    fontSize: 14,
+    color: 'rgba(203, 213, 225, 0.8)',
+    lineHeight: 20,
   },
   logoutButton: {
-    backgroundColor: '#27ae60', // verde
-    paddingVertical: 12,
-    paddingHorizontal: 30,
-    borderRadius: 30,
+    backgroundColor: '#22C55E',
+    paddingVertical: 14,
+    borderRadius: 14,
     alignItems: 'center',
+    marginTop: 24,
+    shadowColor: '#22C55E',
+    shadowOffset: { width: 0, height: 12 },
+    shadowOpacity: 0.35,
+    shadowRadius: 20,
+    elevation: 10,
   },
   logoutText: {
     color: '#fff',

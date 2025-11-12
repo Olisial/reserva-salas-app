@@ -1,8 +1,9 @@
 // src/navigation/UsuarioTabs.js
-import { Ionicons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Text } from 'react-native';
 
 // Telas do usuário
+import TabIcon from '../components/navigation/TabIcon';
 import HistoricoReservas from '../screens/usuario/HistoricoReservas'; // nova tela
 import HomeUsuario from '../screens/usuario/HomeUsuario';
 import NotificacaoReserva from '../screens/usuario/NotificacaoReserva';
@@ -10,19 +11,39 @@ import ReservarPorta from '../screens/usuario/ReservarPorta';
 
 const Tab = createBottomTabNavigator();
 
+const LABEL_STYLE = {
+  fontSize: 12,
+  fontWeight: '700',
+  letterSpacing: 0.3,
+  textTransform: 'none',
+};
+
 export default function UsuarioTabs() {
   return (
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
         tabBarStyle: {
-          backgroundColor: '#fff',
-          borderTopColor: '#ccc',
-          height: 60,
-          paddingBottom: 5,
+          backgroundColor: 'rgba(15, 23, 42, 0.96)',
+          borderTopWidth: 0,
+          height: 74,
+          paddingHorizontal: 18,
+          paddingTop: 10,
+          paddingBottom: 14,
+          elevation: 20,
+          shadowColor: '#000',
+          shadowOffset: { width: 0, height: -4 },
+          shadowOpacity: 0.45,
+          shadowRadius: 16,
         },
-        tabBarActiveTintColor: '#27ae60', // verde padrão
-        tabBarInactiveTintColor: '#777',
+        tabBarActiveTintColor: '#22C55E',
+        tabBarInactiveTintColor: 'rgba(226, 232, 240, 0.58)',
+        tabBarIconStyle: {
+          marginBottom: 0,
+        },
+        tabBarItemStyle: {
+          marginHorizontal: 8,
+        },
       }}
     >
       <Tab.Screen
@@ -30,8 +51,11 @@ export default function UsuarioTabs() {
         component={HomeUsuario}
         options={{
           title: 'Início',
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="home-outline" color={color} size={size} />
+          tabBarLabel: ({ color }) => (
+            <Text style={[LABEL_STYLE, { color, marginTop: 8 }]}>Início</Text>
+          ),
+          tabBarIcon: ({ color, focused }) => (
+            <TabIcon name="home-outline" color={color} focused={focused} />
           ),
         }}
       />
@@ -41,8 +65,11 @@ export default function UsuarioTabs() {
         component={ReservarPorta}
         options={{
           title: 'Reservar',
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="key-outline" color={color} size={size} />
+          tabBarLabel: ({ color }) => (
+            <Text style={[LABEL_STYLE, { color, marginTop: 8 }]}>Reservar</Text>
+          ),
+          tabBarIcon: ({ color, focused }) => (
+            <TabIcon name="key-outline" color={color} focused={focused} />
           ),
         }}
       />
@@ -52,8 +79,11 @@ export default function UsuarioTabs() {
         component={HistoricoReservas}
         options={{
           title: 'Histórico',
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="time-outline" color={color} size={size} />
+          tabBarLabel: ({ color }) => (
+            <Text style={[LABEL_STYLE, { color, marginTop: 8 }]}>Histórico</Text>
+          ),
+          tabBarIcon: ({ color, focused }) => (
+            <TabIcon name="time-outline" color={color} focused={focused} />
           ),
         }}
       />
@@ -63,8 +93,11 @@ export default function UsuarioTabs() {
         component={NotificacaoReserva}
         options={{
           title: 'Notificações',
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="notifications-outline" color={color} size={size} />
+          tabBarLabel: ({ color }) => (
+            <Text style={[LABEL_STYLE, { color, marginTop: 8 }]}>Notificações</Text>
+          ),
+          tabBarIcon: ({ color, focused }) => (
+            <TabIcon name="notifications-outline" color={color} focused={focused} />
           ),
         }}
       />
