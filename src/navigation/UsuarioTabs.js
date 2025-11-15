@@ -6,7 +6,6 @@ import { Text } from 'react-native';
 import TabIcon from '../components/navigation/TabIcon';
 import HistoricoReservas from '../screens/usuario/HistoricoReservas'; // nova tela
 import HomeUsuario from '../screens/usuario/HomeUsuario';
-import NotificacaoReserva from '../screens/usuario/NotificacaoReserva';
 import ReservarPorta from '../screens/usuario/ReservarPorta';
 
 const Tab = createBottomTabNavigator();
@@ -88,19 +87,6 @@ export default function UsuarioTabs() {
         }}
       />
 
-      <Tab.Screen
-        name="NotificacaoReserva"
-        component={NotificacaoReserva}
-        options={{
-          title: 'Notificações',
-          tabBarLabel: ({ color }) => (
-            <Text style={[LABEL_STYLE, { color, marginTop: 8 }]}>Notificações</Text>
-          ),
-          tabBarIcon: ({ color, focused }) => (
-            <TabIcon name="notifications-outline" color={color} focused={focused} />
-          ),
-        }}
-      />
     </Tab.Navigator>
   );
 }

@@ -28,14 +28,14 @@ export default function ReservarPorta() {
   );
 
   const horarios = [
-    { label: '08:00', value: '08:00' },
-    { label: '09:00', value: '09:00' },
-    { label: '10:00', value: '10:00' },
-    { label: '11:00', value: '11:00' },
-    { label: '13:00', value: '13:00' },
-    { label: '14:00', value: '14:00' },
-    { label: '15:00', value: '15:00' },
-    { label: '16:00', value: '16:00' },
+    { label: '08:00', value: '09:00' },
+    { label: '09:00', value: '10:00' },
+    { label: '10:00', value: '11:00' },
+    { label: '11:00', value: '12:00' },
+    { label: '13:00', value: '14:00' },
+    { label: '14:00', value: '15:00' },
+    { label: '15:00', value: '16:00' },
+    { label: '16:00', value: '17:00' },
   ];
 
   const isIOS = Platform.OS === 'ios';
@@ -64,7 +64,7 @@ export default function ReservarPorta() {
         });
       } catch (error) {
         console.warn('DateTimePickerAndroid indisponível, usando fallback.', error);
-        setShowDatePicker(true);
+        setShowIOSDatePicker(true); // ← corrigido
       }
       return;
     }
@@ -117,7 +117,6 @@ export default function ReservarPorta() {
   };
 
   const dropdownAberto = openInicio || openFim;
-  const calendarioVisivel = showDatePicker && (isIOS || isWeb);
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content}>
@@ -310,18 +309,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(15, 23, 42, 0.95)',
     borderColor: 'rgba(148, 163, 184, 0.25)',
     borderRadius: 14,
-  },
-  dropdownContainerSala: {
-    zIndex: 4000,
-    elevation: 30,
-  },
-  dropdownContainerInicio: {
-    zIndex: 3000,
-    elevation: 26,
-  },
-  dropdownContainerFim: {
-    zIndex: 2500,
-    elevation: 24,
   },
   dropdownText: {
     color: '#E2E8F0',
